@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog.Common;
@@ -13,7 +10,7 @@ using NLog.Targets;
 
 namespace NLog.ElasticSearch
 {
-    [Target("elasticsearch")]
+    [Target("ElasticSearch")]
     public sealed class ElasticSearchTarget : Target
     {
         [RequiredParameter]
@@ -26,15 +23,19 @@ namespace NLog.ElasticSearch
         {
             try
             {
-                var url    = new Uri(this.Url.Render(info.LogEvent));
+                var url = new Uri(this.Url.Render(info.LogEvent));
                 var layout = this.Layout.Render(info.LogEvent);
-                var json   = JObject.Parse(layout).ToString(); // make sure the json is valid
+                var json = JObject.Parse(layout).ToString(); // make sure the json is valid
                 var client = new WebClient();
 
                 client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
 
-                client.UploadStringCompleted += (s, e) =>
+                UploadStringCompletedEventHandler cb = null;
+                cb = (s, e) =>
                 {
+                    if (cb != null)
+                        client.UploadStringCompleted -= cb;
+
                     if (e.Error != null)
                     {
                         if (e.Error is WebException)
@@ -61,6 +62,7 @@ namespace NLog.ElasticSearch
                     info.Continuation(null);
                 };
 
+                client.UploadStringCompleted += cb;
                 client.UploadStringAsync(url, "PUT", json);
             }
             catch (Exception ex)
@@ -73,5 +75,5 @@ namespace NLog.ElasticSearch
         {
             throw new NotImplementedException();
         }
-    } 
+    }
 }

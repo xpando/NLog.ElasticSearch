@@ -6,7 +6,7 @@ using NLog.LayoutRenderers;
 
 namespace NLog.ElasticSearch
 {
-    [LayoutRenderer("appsetting")]
+    [LayoutRenderer("AppSetting")]
     public sealed class AppSettingLayoutRenderer : LayoutRenderer
     {
         [RequiredParameter]

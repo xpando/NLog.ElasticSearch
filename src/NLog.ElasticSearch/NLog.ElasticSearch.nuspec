@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>NLog.ElasticSearch</id>
-    <version>0.1</version>
+    <version>1.0</version>
     <authors>David Findley</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NLog target that sends json log messages to an ElasticSearch cluster</description>
@@ -11,7 +11,7 @@
       <frameworkAssembly assemblyName="System.Net" targetFramework="net40-client, net40" />
     </frameworkAssemblies>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="[4.0,5.0)" />
+      <dependency id="Newtonsoft.Json" version="[5.0,6.0)" />
       <dependency id="NLog" version="[2.0,3.0)" />
     </dependencies>
   </metadata>
