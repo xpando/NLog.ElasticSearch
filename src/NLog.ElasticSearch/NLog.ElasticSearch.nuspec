@@ -2,11 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>NLog.ElasticSearch</id>
-    <version>1.0</version>
+    <version>1.1</version>
     <authors>David Findley</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NLog target that sends json log messages to an ElasticSearch cluster</description>
     <summary>NLog - ElasticSearch Target</summary>
+    <releaseNotes>
+      1.1 - Updated to latest version of JSON.NET
+    </releaseNotes>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Net" targetFramework="net40-client, net40" />
     </frameworkAssemblies>
